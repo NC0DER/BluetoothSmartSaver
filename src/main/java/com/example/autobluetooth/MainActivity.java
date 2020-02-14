@@ -13,6 +13,11 @@ public class MainActivity extends AppCompatActivity {
     Switch autoSwitch;
     BluetoothAdapter bluetooth;
 
+    private void display(String text){
+        //Use Toast to display feedback to the user.
+        Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,22 +33,22 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    Toast.makeText(getApplicationContext(), "Enabling Bluetooth...",Toast.LENGTH_SHORT).show();
+                    display("Enabling Bluetooth...");
                     if (bluetooth == null) {
-                        Toast.makeText(getApplicationContext(), "Error: Device doesn't support Bluetooth",Toast.LENGTH_SHORT).show();
+                        display("Error: Device doesn't support Bluetooth");
                     } else if (!bluetooth.isEnabled()) {
                         // Bluetooth is disabled, enable it.
                         bluetooth.enable();
-                        Toast.makeText(getApplicationContext(), "Bluetooth has been enabled!", Toast.LENGTH_SHORT).show();
+                        display("Bluetooth has been enabled!");
                     }
                 } else {
-                    Toast.makeText(getApplicationContext(), "Disabling Bluetooth...", Toast.LENGTH_SHORT).show();
+                    display("Disabling Bluetooth...");
                     if (bluetooth == null) {
-                        Toast.makeText(getApplicationContext(), "Error: Device doesn't support Bluetooth",Toast.LENGTH_SHORT).show();
+                        display("Error: Device doesn't support Bluetooth");
                     } else if (bluetooth.isEnabled()) {
                         // Bluetooth is enabled, disable it.
                         bluetooth.disable();
-                        Toast.makeText(getApplicationContext(), "Bluetooth has been disabled!", Toast.LENGTH_SHORT).show();
+                        display("Bluetooth has been disabled!");
                     }
                 }
             }

@@ -1,2 +1,2 @@
 # AutoBluetooth
-Bluetooth app which automatically enables / disables Bluetooth before / after phone calls.
+Android app which automatically enables / disables Bluetooth before / after phone calls.

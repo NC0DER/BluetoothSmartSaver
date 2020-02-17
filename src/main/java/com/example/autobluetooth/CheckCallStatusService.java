@@ -24,18 +24,15 @@ import android.app.Service;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.IBinder;
-import android.util.Log;
-import android.widget.Toast;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 
-import static com.example.autobluetooth.Utility.display;
+import static com.example.autobluetooth.Utility.logI;
 
 public class CheckCallStatusService extends Service {
 
@@ -91,13 +88,13 @@ public class CheckCallStatusService extends Service {
         PhoneStateListener callStateListener = new PhoneStateListener() {
             public void onCallStateChanged(int state, String incomingNumber) {
                 if(state == TelephonyManager.CALL_STATE_RINGING){
-                    Log.i("State:","Phone Is Ringing");
+                    logI("State:","Phone Is Ringing");
                 }
                 if(state == TelephonyManager.CALL_STATE_OFFHOOK){
-                    Log.i("State:","Phone is Currently in A call");
+                    logI("State:","Phone is Currently in A call");
                 }
                 if(state == TelephonyManager.CALL_STATE_IDLE){
-                    Log.i("State:","phone is neither ringing nor in a call");
+                    logI("State:","phone is neither ringing nor in a call");
                 }
             }
         };

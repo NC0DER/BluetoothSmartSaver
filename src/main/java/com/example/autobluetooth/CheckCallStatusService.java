@@ -77,7 +77,6 @@ public class CheckCallStatusService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        stopCallStateListener();
     }
 
     @SuppressWarnings("InfiniteLoopStatement")
@@ -101,10 +100,10 @@ public class CheckCallStatusService extends Service {
         telephone.listen(callStateListener, PhoneStateListener.LISTEN_CALL_STATE);
     }
 
-    public void stopCallStateListener() {
-        Log.i("Stop", "Service has been stopped!");
-    }
-
+    /**
+     * The service is not bound, therefore the onBind()
+     * method is implemented as a Nullable.
+     */
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {

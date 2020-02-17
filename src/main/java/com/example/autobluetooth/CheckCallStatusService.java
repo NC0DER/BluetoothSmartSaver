@@ -24,6 +24,7 @@ import android.app.Service;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -108,17 +109,25 @@ public class CheckCallStatusService extends Service {
         // Initialize the variable that manages phone call state.
         final TelephonyManager telephone =
             (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+        final BluetoothAdapter bluetooth =
+                BluetoothAdapter.getDefaultAdapter();
+
 
         PhoneStateListener callStateListener = new PhoneStateListener() {
             /** Detects the call state status, during changes in the call state. */
             public void onCallStateChanged(int state, String incomingNumber) {
-                if(state == TelephonyManager.CALL_STATE_RINGING){
-                    logI("State:","Phone Is Ringing");
-                }
                 if(state == TelephonyManager.CALL_STATE_OFFHOOK){
+                    // Bluetooth is disabled, enable it.
+                    if (!bluetooth.isEnabled()) {
+                        bluetooth.enable();
+                    }
                     logI("State:","Phone is Currently in A call");
                 }
                 if(state == TelephonyManager.CALL_STATE_IDLE){
+                    // Bluetooth is enabled, disable it.
+                    if (bluetooth.isEnabled()) {
+                        bluetooth.disable();
+                    }
                     logI("State:","phone is neither ringing nor in a call");
                 }
             }

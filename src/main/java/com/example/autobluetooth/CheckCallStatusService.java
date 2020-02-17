@@ -81,11 +81,6 @@ public class CheckCallStatusService extends Service {
     public void onDestroy() {
         super.onDestroy();
         stopCallStateListener();
-
-        Intent broadcastIntent = new Intent();
-        broadcastIntent.setAction("restartservice");
-        broadcastIntent.setClass(this, Restarter.class);
-        this.sendBroadcast(broadcastIntent);
     }
 
     @SuppressWarnings("InfiniteLoopStatement")
@@ -117,20 +112,6 @@ public class CheckCallStatusService extends Service {
     @Override
     public IBinder onBind(Intent intent) {
         return null;
-    }
-
-    private class Restarter extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            Log.i("Broadcast Listened", "Service tried to stop");
-            Toast.makeText(context, "Service restarted", Toast.LENGTH_SHORT).show();
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                context.startForegroundService(new Intent(context, CheckCallStatusService.class));
-            } else {
-                context.startService(new Intent(context, CheckCallStatusService.class));
-            }
-        }
     }
 }
 

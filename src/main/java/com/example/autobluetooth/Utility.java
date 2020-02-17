@@ -17,13 +17,27 @@
 package com.example.autobluetooth;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
+/**
+ * Contains static utility methods,
+ * for text output to the user's screen
+ * or to the console for logging.
+ * */
 @SuppressWarnings("WeakerAccess")
 public final class Utility {
-
+    // Set logging, depending on the value of the debug flag.
+    static final boolean LOG = BuildConfig.DEBUG;
+    /** Uses Toast to display feedback to the user for a short length of time. */
     protected static void display(String text, Context context) {
-        //Use Toast to display feedback to the user.
         Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
+    }
+
+    /** If logging is enabled, then we print the log info messages.
+     *  Otherwise, the compiler optimizes away the empty method.
+     */
+    protected static void logI(String tag, String msg){
+        if(LOG) Log.i(tag, msg);
     }
 }

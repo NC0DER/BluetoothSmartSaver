@@ -33,9 +33,16 @@ import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 
 import static com.example.autobluetooth.Utility.logI;
-
+/**
+ * Manages the lifecycle of a foreground service
+ * which check and logs the phone call status.
+ * */
 public class CheckCallStatusService extends Service {
-
+    /**
+     * Called by the system when the service is first created.
+     * The service is being started differently, depending
+     * on android build version of the device.
+     */
     @Override
     public void onCreate() {
         super.onCreate();
@@ -45,20 +52,32 @@ public class CheckCallStatusService extends Service {
             startForeground(1, new Notification());
     }
 
+    /**
+     * Implements custom foreground service code,
+     * for devices that have a build Version of
+     * Android Oreo 8.0 and above, due to api changes
+     * on the aforementioned version.
+     */
     @RequiresApi(Build.VERSION_CODES.O)
     private void startMyOwnForeground()
     {
         String NOTIFICATION_CHANNEL_ID = "example.permanence";
         String channelName = "Background Service";
-        NotificationChannel chan = new NotificationChannel(NOTIFICATION_CHANNEL_ID, channelName, NotificationManager.IMPORTANCE_NONE);
-        chan.setLightColor(Color.BLUE);
-        chan.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
+        NotificationChannel channel =
+                new NotificationChannel(
+                        NOTIFICATION_CHANNEL_ID,
+                        channelName,
+                        NotificationManager.IMPORTANCE_NONE);
+        channel.setLightColor(Color.BLUE);
+        channel.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
 
-        NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManager manager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         assert manager != null;
-        manager.createNotificationChannel(chan);
+        manager.createNotificationChannel(channel);
 
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID);
+        NotificationCompat.Builder notificationBuilder =
+                new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID);
         Notification notification = notificationBuilder.setOngoing(true)
                 .setContentTitle("App is running in background")
                 .setPriority(NotificationManager.IMPORTANCE_MIN)
@@ -67,6 +86,10 @@ public class CheckCallStatusService extends Service {
         startForeground(2, notification);
     }
 
+    /**
+     * Called by the system, every time MainActivity explicitly
+     * starts the service by calling the startService method.
+     */
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         super.onStartCommand(intent, flags, startId);
@@ -74,17 +97,20 @@ public class CheckCallStatusService extends Service {
         return START_STICKY;
     }
 
+    /** Called by the system, when the service is being stopped. */
     @Override
     public void onDestroy() {
         super.onDestroy();
     }
 
-    @SuppressWarnings("InfiniteLoopStatement")
+    /** Complementary method to manually start the PhoneStateListener. */
     public void startCallStateListener() {
-        final TelephonyManager telephone;
-        telephone = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+        // Initialize the variable that manages phone call state.
+        final TelephonyManager telephone =
+            (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
 
         PhoneStateListener callStateListener = new PhoneStateListener() {
+            /** Detects the call state status, during changes in the call state. */
             public void onCallStateChanged(int state, String incomingNumber) {
                 if(state == TelephonyManager.CALL_STATE_RINGING){
                     logI("State:","Phone Is Ringing");

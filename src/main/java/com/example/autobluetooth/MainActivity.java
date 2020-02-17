@@ -66,25 +66,27 @@ public class MainActivity extends AppCompatActivity {
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        final CheckCallStatusService service;
+        final CheckCallStatusService service =
+                new CheckCallStatusService();
+        final BluetoothAdapter bluetooth =
+                BluetoothAdapter.getDefaultAdapter();
+        final Context context =
+                getApplicationContext();
+        // Needs to be assigned after the setContentView call.
         final Switch autoSwitch;
-        //final BluetoothAdapter bluetooth;
-        final Context context;
 
+        // Create and set content view and its switch.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         autoSwitch = findViewById(R.id.autoSwitch);
-        //bluetooth = BluetoothAdapter.getDefaultAdapter();
-        context = getApplicationContext();
-        service = new CheckCallStatusService();
-        service_intent = new Intent(this, service.getClass());
 
-        // If the device doesn't support Bluetooth,
+        //If the device doesn't support Bluetooth,
         // then do an early clean exit.
-        //if (bluetooth == null) {
-        //  finishAndRemoveTask();
-        //}
+        if (bluetooth == null) {
+            finishAndRemoveTask();
+        }
+
+        service_intent = new Intent(this, service.getClass());
 
         // If the service is running, set the switch ON.
         // Else turn the switch OFF.
@@ -118,12 +120,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
-        //if (bluetooth.isEnabled()) {
-        // Bluetooth is enabled, disable it.
-        //bluetooth.disable();
-        //}
-
     }
     /**
      * Stops the service at app exit,

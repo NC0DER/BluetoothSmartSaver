@@ -38,7 +38,7 @@ import static com.example.autobluetooth.Utility.logI;
  * Manages the lifecycle of a foreground service
  * which check and logs the phone call status.
  * */
-public class CheckCallStatusService extends Service {
+public class HandleBluetoothByCallStateStatus extends Service {
     /**
      * Called by the system when the service is first created.
      * The service is being started differently, depending
@@ -112,23 +112,23 @@ public class CheckCallStatusService extends Service {
         final BluetoothAdapter bluetooth =
                 BluetoothAdapter.getDefaultAdapter();
 
-
         PhoneStateListener callStateListener = new PhoneStateListener() {
             /** Detects the call state status, during changes in the call state. */
             public void onCallStateChanged(int state, String incomingNumber) {
-                if(state == TelephonyManager.CALL_STATE_OFFHOOK){
-                    // Bluetooth is disabled, enable it.
+                if(state == TelephonyManager.CALL_STATE_OFFHOOK ||
+                        state == TelephonyManager.CALL_STATE_RINGING){
+                    logI("State:","Phone ringing or in-call");
+                    // Enable bluetooth adapter, if it is disabled.
                     if (!bluetooth.isEnabled()) {
                         bluetooth.enable();
                     }
-                    logI("State:","Phone is Currently in A call");
                 }
                 if(state == TelephonyManager.CALL_STATE_IDLE){
-                    // Bluetooth is enabled, disable it.
+                    logI("State:","Phone neither ringing nor in-call.");
+                    // Disable bluetooth adapter, if it is enabled.
                     if (bluetooth.isEnabled()) {
                         bluetooth.disable();
                     }
-                    logI("State:","phone is neither ringing nor in a call");
                 }
             }
         };

@@ -29,6 +29,7 @@ import android.bluetooth.BluetoothAdapter;
 
 import static com.example.autobluetooth.Utility.display;
 import static com.example.autobluetooth.Utility.logI;
+
 /**
  * Constructs the UI elements,
  * and starts / stops the foreground
@@ -66,8 +67,8 @@ public class MainActivity extends AppCompatActivity {
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        final CheckCallStatusService service =
-                new CheckCallStatusService();
+        final HandleBluetoothByCallStateStatus service =
+                new HandleBluetoothByCallStateStatus();
         final BluetoothAdapter bluetooth =
                 BluetoothAdapter.getDefaultAdapter();
         final Context context =

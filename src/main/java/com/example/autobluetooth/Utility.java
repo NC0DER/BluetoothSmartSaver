@@ -37,7 +37,5 @@ public final class Utility {
     /** If logging is enabled, then we print the log info messages.
      *  Otherwise, the compiler optimizes away the empty method.
      */
-    protected static void logI(String tag, String msg){
-        if(LOG) Log.i(tag, msg);
-    }
+    protected static void logI(String tag, String msg){ if(LOG) Log.i(tag, msg); }
 }

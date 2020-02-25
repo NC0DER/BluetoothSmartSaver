@@ -123,13 +123,11 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     /**
-     * Stops the service at app exit,
-     * then calls the onDestroy()
+     * Calls the onDestroy()
      * method of the parent class.
      */
     @Override
     protected void onDestroy() {
-        stopService(service_intent);
         super.onDestroy();
     }
 }

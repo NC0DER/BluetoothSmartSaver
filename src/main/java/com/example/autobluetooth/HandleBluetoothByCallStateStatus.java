@@ -117,14 +117,14 @@ public class HandleBluetoothByCallStateStatus extends Service {
             public void onCallStateChanged(int state, String incomingNumber) {
                 if(state == TelephonyManager.CALL_STATE_OFFHOOK ||
                         state == TelephonyManager.CALL_STATE_RINGING){
-                    logI("State:","Phone ringing or in-call");
+                    logI("State","Phone ringing or in-call");
                     // Enable bluetooth adapter, if it is disabled.
                     if (!bluetooth.isEnabled()) {
                         bluetooth.enable();
                     }
                 }
                 if(state == TelephonyManager.CALL_STATE_IDLE){
-                    logI("State:","Phone neither ringing nor in-call.");
+                    logI("State","Phone neither ringing nor in-call.");
                     // Disable bluetooth adapter, if it is enabled.
                     if (bluetooth.isEnabled()) {
                         bluetooth.disable();

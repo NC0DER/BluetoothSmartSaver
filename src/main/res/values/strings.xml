@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">AutoBluetooth</string>
+    <string name="help_text">First-time user? Press <b><u>Help</u></b></string>
+    <string name="switch_text">Auto Bluetooth Switch</string>
 </resources>

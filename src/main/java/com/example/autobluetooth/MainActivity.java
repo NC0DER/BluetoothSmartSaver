@@ -20,13 +20,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ActivityManager;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.content.Context;
 import android.widget.Switch;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.bluetooth.BluetoothAdapter;
+import android.widget.TextView;
 
+import static com.example.autobluetooth.Utility.createStatusSpannable;
 import static com.example.autobluetooth.Utility.display;
 import static com.example.autobluetooth.Utility.logI;
 
@@ -75,11 +78,13 @@ public class MainActivity extends AppCompatActivity {
                 getApplicationContext();
         // Needs to be assigned after the setContentView call.
         final Switch autoSwitch;
+        final TextView status;
 
         // Create and set content view and its switch.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         autoSwitch = findViewById(R.id.autoSwitch);
+        status = findViewById(R.id.ServiceTextView);
 
         //If the device doesn't support Bluetooth,
         // then do an early clean exit.
@@ -91,11 +96,20 @@ public class MainActivity extends AppCompatActivity {
 
         // If the service is running, set the switch ON.
         // Else turn the switch OFF.
+        // Also update the service status TextView.
         if (isMyServiceRunning(service.getClass())) {
             autoSwitch.setChecked(true);
+            status.setText(
+                    createStatusSpannable("Service Status: ", true),
+                    TextView.BufferType.SPANNABLE);
         } else {
             autoSwitch.setChecked(false);
+            status.setText(
+                    createStatusSpannable("Service Status: ", false),
+                    TextView.BufferType.SPANNABLE);
         }
+        // Make TextView text bold, in both cases.
+        status.setTypeface(status.getTypeface(), Typeface.BOLD);
 
         autoSwitch.setOnCheckedChangeListener(new OnCheckedChangeListener() {
             /**
@@ -105,20 +119,42 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    // If the switch is ON, start the service, if it is not running.
+                    // If the switch is ON, try to start the service,
+                    // if it is not running, and set "Service status:
+                    // Started" in the service TextView, if successful.
                     if (!isMyServiceRunning(service.getClass())) {
-                        display("Starting Service...", context);
-                        startService(service_intent);
-                        display("Service has been started.", context);
+                        try{
+                            startService(service_intent);
+                        } catch (SecurityException sec) {
+                            display("Error: Service fail to run. " +
+                                    "Please allow requested app permissions.", context);
+                        } catch (IllegalStateException ise) {
+                            display("Error: Service couldn't be started.", context);
+                        }
+                        status.setText(
+                                createStatusSpannable("Service Status: ", true),
+                                TextView.BufferType.SPANNABLE);
                     }
                 } else {
-                    // If the switch is OFF, stop the service, if it is running.
+                    // If the switch is OFF, try to stop the service,
+                    // if it is running, and set "Service status:
+                    // Stopped" in the service TextView, if successful.
                     if (isMyServiceRunning(service.getClass())) {
-                        display("Stopping Service...", context);
-                        stopService(service_intent);
-                        display("Service has been stopped.", context);
+                        try{
+                            stopService(service_intent);
+                        } catch (SecurityException sec) {
+                            display("Error: Service fail to run. " +
+                                    "Please allow requested app permissions.", context);
+                        } catch (IllegalStateException ise) {
+                            display("Error: Service couldn't be stopped.", context);
+                        }
+                        status.setText(
+                                createStatusSpannable("Service Status: ", false),
+                                TextView.BufferType.SPANNABLE);
                     }
                 }
+                // Make TextView text bold, in both cases.
+                status.setTypeface(status.getTypeface(), Typeface.BOLD);
             }
         });
     }

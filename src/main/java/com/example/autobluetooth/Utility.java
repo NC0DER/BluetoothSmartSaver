@@ -17,7 +17,12 @@
 package com.example.autobluetooth;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
+import android.util.TypedValue;
 import android.widget.Toast;
 
 /**
@@ -38,4 +43,23 @@ public final class Utility {
      *  Otherwise, the compiler optimizes away the empty method.
      */
     protected static void logI(String tag, String msg){ if(LOG) Log.i(tag, msg); }
+    /** Create a Service Status string based on specific inputs. */
+    protected static Spannable createStatusSpannable(String text, Boolean started) {
+        String status;
+        int color;
+        if (started) {
+            status = "Started";
+            color = Color.parseColor("#40ff40");
+        } else {
+            status = "Stopped";
+            color = Color.parseColor("#ff1111");
+        }
+        String total = text + status;
+        Spannable spannable = new SpannableString(total);
+        spannable.setSpan(
+                new ForegroundColorSpan(color),
+                text.length(), total.length(),
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        return spannable;
+    }
 }

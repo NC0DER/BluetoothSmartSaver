@@ -43,6 +43,18 @@ public final class Utility {
      *  Otherwise, the compiler optimizes away the empty method.
      */
     protected static void logI(String tag, String msg){ if(LOG) Log.i(tag, msg); }
+
+    /** Dynamically get the height of the Actionbar for scaling other UI elements. */
+    protected static int getActionbarHeight(Context context){
+        int actionBarHeight = 0;
+        TypedValue tv = new TypedValue();
+        if (context.getTheme().resolveAttribute(
+                android.R.attr.actionBarSize, tv, true)) {
+            actionBarHeight = TypedValue.complexToDimensionPixelSize(
+                    tv.data, context.getResources().getDisplayMetrics());
+        }
+        return actionBarHeight;
+    }
     /** Create a Service Status string based on specific inputs. */
     protected static Spannable createStatusSpannable(String text, Boolean started) {
         String status;

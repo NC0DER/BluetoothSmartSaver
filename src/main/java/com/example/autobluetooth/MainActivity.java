@@ -17,20 +17,34 @@
 package com.example.autobluetooth;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.viewpager.widget.ViewPager;
 
 import android.app.ActivityManager;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.content.Context;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.PopupWindow;
 import android.widget.Switch;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.bluetooth.BluetoothAdapter;
 import android.widget.TextView;
 
+import static android.text.Layout.JUSTIFICATION_MODE_INTER_WORD;
+import static android.view.View.TEXT_ALIGNMENT_TEXT_START;
 import static com.example.autobluetooth.Utility.createStatusSpannable;
 import static com.example.autobluetooth.Utility.display;
+import static com.example.autobluetooth.Utility.getActionbarHeight;
 import static com.example.autobluetooth.Utility.logI;
 
 /**
@@ -43,6 +57,14 @@ public class MainActivity extends AppCompatActivity {
     // Declare service_intent as a shared variable
     // for onCreate() and onDestroy() methods.
     private Intent service_intent;
+    private PopupWindow popupWindow;
+    private LayoutInflater layoutInflater;
+    private ConstraintLayout parentLayout;
+    private TextView popupTitle;
+    private TextView popupText;
+    private int parentSize;
+    private int actionBarHeight;
+
     /**
     * Checks where the service, is running.
     * Returns True if it is, false otherwise.
@@ -76,17 +98,78 @@ public class MainActivity extends AppCompatActivity {
                 BluetoothAdapter.getDefaultAdapter();
         final Context context =
                 getApplicationContext();
-        // Needs to be assigned after the setContentView call.
+        // Need to be assigned after the setContentView call.
         final Switch autoSwitch;
+        final TextView help;
         final TextView status;
 
-        // Create and set content view and its switch.
+
+        // Create, set content view and retrieve its elements.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         autoSwitch = findViewById(R.id.autoSwitch);
+        help = findViewById(R.id.HelpTextView);
         status = findViewById(R.id.ServiceTextView);
+        parentLayout = findViewById(R.id.layout);
 
-        //If the device doesn't support Bluetooth,
+        help.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Displays a popup, when the help TextView is pressed.
+             * The popup can be dismissed when the user clicks elsewhere.
+             */
+            @Override
+            public void onClick(View view) {
+                // Initialize a new instance of LayoutInflater service.
+                layoutInflater = (LayoutInflater)
+                        context.getSystemService(LAYOUT_INFLATER_SERVICE);
+                // Inflate the custom view.
+                ViewGroup customView = (ViewGroup)
+                        layoutInflater.inflate(R.layout.popup_window, null);
+
+                // Get ActionBarHeight.
+                actionBarHeight = getActionbarHeight(context);
+                // Find Popup Title and text.
+                popupTitle = customView.findViewById(R.id.PopupTitleView);
+                popupText = customView.findViewById(R.id.PopupTextView);
+
+                // Set text alignment of popup text.
+                // For build version greater or equal to Android Oreo (API Level 26)
+                // Full text justification is supported, and will also be used below.
+                // For older builds, left align justification is used.
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+                    popupText.setJustificationMode(JUSTIFICATION_MODE_INTER_WORD);
+                } else {
+                    popupText.setTextAlignment(TEXT_ALIGNMENT_TEXT_START);
+                }
+                // Dynamically set padding of Popup title,
+                // based to a fraction of the action bar height.
+                popupTitle.setPadding(
+                        0,
+                        actionBarHeight / 3,
+                        0,
+                        actionBarHeight / 3);
+                // Get view sizes from parent.
+                parentSize = ViewPager.LayoutParams.MATCH_PARENT;
+                // Create a focusable PopupWindow.
+                popupWindow = new PopupWindow(
+                        customView,
+                        parentSize,
+                        parentSize,
+                        true);
+                popupWindow.showAtLocation(parentLayout, Gravity.CENTER, 500, 500);
+                popupWindow.setBackgroundDrawable(
+                        new BitmapDrawable(context.getResources(), (Bitmap) null));
+                customView.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View view, MotionEvent motionEvent) {
+                        popupWindow.dismiss();
+                        return true;
+                    }
+                });
+            }
+        });
+
+        // If the device doesn't support Bluetooth,
         // then do an early clean exit.
         if (bluetooth == null) {
             finishAndRemoveTask();

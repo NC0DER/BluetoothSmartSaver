@@ -1,12 +1,12 @@
 <resources>
-    <string name="app_name">AutoBluetooth</string>
+    <string name="app_name">Bluetooth Smart Saver</string>
     <string name="help_text">First-time user? Press <b><u>Help</u></b></string>
-    <string name="switch_text">Auto Bluetooth Switch</string>
+    <string name="switch_text">Smart Switch</string>
     <string name="popup_title"><b>Help Section</b></string>
     <string name="popup_text">
-        AutoBluetooth is a power-saving app, which is meant to be
-        an automatic power saving utility, for people who participate
-        in a lot of audio calls using Bluetooth Headsets.\n
+        Bluetooth Smart Saver is an automatic power saving utility,
+        for people who participate in a lot of audio calls using
+        Bluetooth Headsets.\n
         This app runs a foreground service, which is a process,
         that runs separately in the background from the graphical UI
         of the app. The purpose of this service is to enable bluetooth

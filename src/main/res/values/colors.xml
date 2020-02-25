@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="launcher_icon_background">#000000</color>
     <color name="colorPrimary">#323232</color>
     <color name="colorPrimaryDark">#323232</color>
-    <color name="colorAccent">#1BA6D8</color>
+    <color name="colorAccent">#4969E1</color>
     <color name="white">#FFFFFF</color>
     <color name="lightGray">#CDCDCD</color>
     <color name="darkGray">#323232</color>

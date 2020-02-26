@@ -27,6 +27,8 @@ import android.app.NotificationManager;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.IBinder;
@@ -66,6 +68,10 @@ public class HandleBluetoothByCallStateStatus extends Service {
     {
         String NOTIFICATION_CHANNEL_ID = "example.permanence";
         String channelName = "Background Service";
+        // Initialize large bitmap icon, to be used in the notification.
+        Bitmap large_icon = BitmapFactory.decodeResource(
+                getResources(), R.drawable.launcher_icon_foreground);
+        // Initialize the notification channel.
         NotificationChannel channel =
                 new NotificationChannel(
                         NOTIFICATION_CHANNEL_ID,
@@ -74,15 +80,19 @@ public class HandleBluetoothByCallStateStatus extends Service {
         channel.setLightColor(Color.BLUE);
         channel.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
 
+        // Create the notification channel.
         NotificationManager manager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         assert manager != null;
         manager.createNotificationChannel(channel);
 
+        // Build the notification.
         NotificationCompat.Builder notificationBuilder =
                 new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID);
         Notification notification = notificationBuilder.setOngoing(true)
                 .setContentTitle("App is running in background")
+                .setSmallIcon(R.drawable.notification_icon)
+                .setLargeIcon(large_icon)
                 .setPriority(NotificationManager.IMPORTANCE_MIN)
                 .setCategory(Notification.CATEGORY_SERVICE)
                 .build();

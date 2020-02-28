@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.bluetoothsmartsaver;
+package com.bluetoothsmartsaver;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -35,7 +35,7 @@ import android.os.IBinder;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 
-import static com.example.bluetoothsmartsaver.Utility.logI;
+import static com.bluetoothsmartsaver.Utility.logI;
 /**
  * Manages the lifecycle of a foreground service,
  * which check the phone call status.

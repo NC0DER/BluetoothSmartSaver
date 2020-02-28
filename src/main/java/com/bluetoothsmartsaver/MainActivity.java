@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.autobluetooth;
+package com.bluetoothsmartsaver;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -42,10 +42,10 @@ import android.widget.TextView;
 
 import static android.text.Layout.JUSTIFICATION_MODE_INTER_WORD;
 import static android.view.View.TEXT_ALIGNMENT_TEXT_START;
-import static com.example.autobluetooth.Utility.createStatusSpannable;
-import static com.example.autobluetooth.Utility.display;
-import static com.example.autobluetooth.Utility.getActionbarHeight;
-import static com.example.autobluetooth.Utility.logI;
+import static com.bluetoothsmartsaver.Utility.createStatusSpannable;
+import static com.bluetoothsmartsaver.Utility.display;
+import static com.bluetoothsmartsaver.Utility.getActionbarHeight;
+import static com.bluetoothsmartsaver.Utility.logI;
 
 /**
  * Constructs the UI elements,
@@ -66,11 +66,11 @@ public class MainActivity extends AppCompatActivity {
     private int actionBarHeight;
 
     /**
-    * Checks where the service, is running.
-    * Returns True if it is, false otherwise.
-    * It also logs the service status,
-    * when the Debug Flag is set.
-    */
+     * Checks where the service, is running.
+     * Returns True if it is, false otherwise.
+     * It also logs the service status,
+     * when the Debug Flag is set.
+     */
     private boolean isMyServiceRunning(Class<?> serviceClass) {
         ActivityManager manager =
                 (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
@@ -169,12 +169,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // If the device doesn't support Bluetooth,
-        // then do an early clean exit.
-        if (bluetooth == null) {
-            finishAndRemoveTask();
-        }
-
         service_intent = new Intent(this, service.getClass());
 
         // If the service is running, set the switch ON.
@@ -202,10 +196,23 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    // If the switch is ON, try to start the service,
-                    // if it is not running, and set "Service status:
-                    // Started" in the service TextView, if successful.
-                    if (!isMyServiceRunning(service.getClass())) {
+                    // if the switch is ON and the device does not support
+                    // Bluetooth, then don't start the service,
+                    // display an error message, and set the switch to OFF.
+                    // Alternatively, if the switch is ON, and the service
+                    // is not running, try to start the service,
+                    // and set "Service status: Started"
+                    // in the service TextView, if successful.
+
+                    if (bluetooth == null) {
+                        display("Error: Bluetooth adapter is invalid!\n" +
+                                "If this error persists, " +
+                                "check if your bluetooth is properly working.",
+                                context);
+                        autoSwitch.setChecked(false);
+
+                    }
+                    else if (!isMyServiceRunning(service.getClass())) {
                         try{
                             startService(service_intent);
                         } catch (SecurityException sec) {
@@ -217,6 +224,7 @@ public class MainActivity extends AppCompatActivity {
                         status.setText(
                                 createStatusSpannable("Service Status: ", true),
                                 TextView.BufferType.SPANNABLE);
+                        status.setTypeface(status.getTypeface(), Typeface.BOLD);
                     }
                 } else {
                     // If the switch is OFF, try to stop the service,
@@ -234,10 +242,9 @@ public class MainActivity extends AppCompatActivity {
                         status.setText(
                                 createStatusSpannable("Service Status: ", false),
                                 TextView.BufferType.SPANNABLE);
+                        status.setTypeface(status.getTypeface(), Typeface.BOLD);
                     }
                 }
-                // Make TextView text bold, in both cases.
-                status.setTypeface(status.getTypeface(), Typeface.BOLD);
             }
         });
     }

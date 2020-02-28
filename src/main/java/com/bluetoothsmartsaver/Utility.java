@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.autobluetooth;
+package com.bluetoothsmartsaver;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -27,8 +27,8 @@ import android.widget.Toast;
 
 /**
  * Contains static utility methods,
- * for text output to the user's screen
- * or to the console for logging.
+ * that are required by other classes
+ * of the app.
  * */
 @SuppressWarnings("WeakerAccess")
 public final class Utility {
@@ -55,6 +55,7 @@ public final class Utility {
         }
         return actionBarHeight;
     }
+
     /** Create a Service Status string based on specific inputs. */
     protected static Spannable createStatusSpannable(String text, Boolean started) {
         String status;

@@ -177,12 +177,12 @@ public class MainActivity extends AppCompatActivity {
         if (isMyServiceRunning(service.getClass())) {
             autoSwitch.setChecked(true);
             status.setText(
-                    createStatusSpannable("Service Status: ", true),
+                    createStatusSpannable(context, true),
                     TextView.BufferType.SPANNABLE);
         } else {
             autoSwitch.setChecked(false);
             status.setText(
-                    createStatusSpannable("Service Status: ", false),
+                    createStatusSpannable(context, false),
                     TextView.BufferType.SPANNABLE);
         }
         // Make TextView text bold, in both cases.
@@ -205,10 +205,9 @@ public class MainActivity extends AppCompatActivity {
                     // in the service TextView, if successful.
 
                     if (bluetooth == null) {
-                        display("Error: Bluetooth adapter is invalid!\n" +
-                                "If this error persists, " +
-                                "check if your bluetooth is properly working.",
-                                context);
+                        display(context.getResources().
+                                        getString(R.string.error_bluetooth),
+                                        context);
                         autoSwitch.setChecked(false);
 
                     }
@@ -216,13 +215,14 @@ public class MainActivity extends AppCompatActivity {
                         try{
                             startService(service_intent);
                         } catch (SecurityException sec) {
-                            display("Error: Service fail to run. " +
-                                    "Please allow requested app permissions.", context);
+                            display(context.getResources().
+                                    getString(R.string.error_permission), context);
                         } catch (IllegalStateException ise) {
-                            display("Error: Service couldn't be started.", context);
+                            display(context.getResources().
+                                    getString(R.string.error_service_start), context);
                         }
                         status.setText(
-                                createStatusSpannable("Service Status: ", true),
+                                createStatusSpannable(context, true),
                                 TextView.BufferType.SPANNABLE);
                         status.setTypeface(status.getTypeface(), Typeface.BOLD);
                     }
@@ -234,13 +234,14 @@ public class MainActivity extends AppCompatActivity {
                         try{
                             stopService(service_intent);
                         } catch (SecurityException sec) {
-                            display("Error: Service fail to run. " +
-                                    "Please allow requested app permissions.", context);
+                            display(context.getResources().
+                                    getString(R.string.error_permission), context);
                         } catch (IllegalStateException ise) {
-                            display("Error: Service couldn't be stopped.", context);
+                            display(context.getResources().
+                                    getString(R.string.error_service_stop), context);
                         }
                         status.setText(
-                                createStatusSpannable("Service Status: ", false),
+                                createStatusSpannable(context, false),
                                 TextView.BufferType.SPANNABLE);
                         status.setTypeface(status.getTypeface(), Typeface.BOLD);
                     }

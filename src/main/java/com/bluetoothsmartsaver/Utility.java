@@ -56,18 +56,21 @@ public final class Utility {
         return actionBarHeight;
     }
 
-    /** Create a Service Status string based on specific inputs. */
-    protected static Spannable createStatusSpannable(String text, Boolean started) {
+    /**
+     * Create a Service Status string based on specific inputs,
+     * by utilizing the correct string resource from context. */
+    protected static Spannable createStatusSpannable(Context context, Boolean started) {
+        String text = context.getResources().getString(R.string.service_status);
         String status;
         int color;
         if (started) {
-            status = "Started";
+            status = context.getResources().getString(R.string.service_started);
             color = Color.parseColor("#40ff40");
         } else {
-            status = "Stopped";
+            status = context.getResources().getString(R.string.service_stopped);
             color = Color.parseColor("#ff1111");
         }
-        String total = text + status;
+        String total = text + " " + status;
         Spannable spannable = new SpannableString(total);
         spannable.setSpan(
                 new ForegroundColorSpan(color),

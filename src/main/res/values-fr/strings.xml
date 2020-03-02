@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="help_text">Nouvel utilisateur? Appuyez sur <b><u>Aide</u></b></string>
+    <string name="switch_text">L\'interrupteur intelligent</string>
+    <string name="service_status">État de service:</string>
+    <string name="service_started">Démarrer</string>
+    <string name="service_stopped">Arrêté</string>
+    <string name="error_bluetooth">Erreur: L\'adaptateur Bluetooth n\'est pas valide!\n
+        Si cette erreur persiste, vérifiez si votre bluetooth fonctionne correctement.</string>
+    <string name="error_permission">Erreur: Le service ne fonctionne pas.\n
+        Veuillez autoriser les autorisations d\'application demandées.</string>
+    <string name="error_service_start">Erreur: Le service n\'a pas pu être lancé.</string>
+    <string name="error_service_stop">Erreur: Le service n\'a pas pu être interrompu.</string>
+    <string name="popup_title"><b>Section d\'aide</b></string>
+    <string name="popup_text">
+        Le Bluetooth Smart Saver est un utilitaire d\'économie d\'énergie automatique,
+        pour les personnes qui participent à un grand nombre d\'appels audio en utilisant
+        Casques d\'écoute Bluetooth.\n
+        Cette application fait fonctionner un service, séparément en arrière-plan de l\'interface graphique de l\'application.
+        Le but de ce service est d\'activer le bluetooth, lorsque vous recevez un appel entrant
+        ou lorsque vous passez un appel sortant, et de désactiver le bluetooth une fois l\'appel terminé.
+        Même si vous fermez l\'application (ou si vous la supprimez des \'applications récentes\'), ce service
+        travailleront toujours en arrière-plan. Vous pouvez voir si le service fonctionne
+        en regardant votre barre de notification.\n
+        PPour <b> activer ce service</b>, faites glisser L\'interrupteur intelligent sur
+        la droite, alors que pour <b>désactiver ce service</b> le faire glisser sur
+        la gauche. Lorsque vous activez ou désactivez le service, un message
+        s\'affiche au bas de votre écran, indiquant si
+        le service est démarré ou arrêté.\n
+        Par défaut, le processus est arrêté.
+        Par défaut, le service est arrêté.
+        L\'application se souvient si le service est démarré ou arrêté,
+        même si vous fermez l\'application, et la rouvrez plus tard.
+        Cela vous permet d\'arrêter le service à tout moment.
+        <b><i>Pour ignorer ce message, appuyez sur la touche \'Section d\'aide\'
+        sur votre écran.</i></b></string>
+</resources>

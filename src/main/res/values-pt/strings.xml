@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="help_text">Novo usuário? Pressione <b><u>Ajuda</u></b></string>
+    <string name="switch_text">Interruptor Inteligente</string>
+    <string name="service_status">Status do serviço:</string>
+    <string name="service_started">Iniciado</string>
+    <string name="service_stopped">Parou</string>
+    <string name="error_bluetooth">Erro: O adaptador Bluetooth é inválido!\n
+        Se este erro persistir, verifique se o seu bluetooth está a funcionar correctamente.</string>
+    <string name="error_permission">Serviço não funciona.\n
+        Por favor, permita as permissões de aplicativos solicitados.</string>
+    <string name="error_service_start">Erro: O serviço não pôde ser iniciado.</string>
+    <string name="error_service_stop">Erro: O serviço não pôde ser interrompido.</string>
+    <string name="popup_title"><b>Secção de Ajuda</b></string>
+    <string name="popup_text">
+        O Bluetooth Smart Saver é um utilitário automático de economia de energia,
+        para pessoas que participam em muitas chamadas de áudio usando
+        Fones de ouvido Bluetooth.\n
+        Este aplicativo executa um serviço, separadamente em segundo plano da interface gráfica do aplicativo.
+        O objetivo deste serviço é habilitar o bluetooth, quando você recebe uma chamada
+        ou quando você faz uma chamada de saída, e para desativar o bluetooth uma vez que a chamada tenha terminado.
+        Mesmo se você fechar o aplicativo (ou removê-lo de aplicativos recentes) este serviço
+        ainda vai funcionar em segundo plano. Você pode ver se o serviço está funcionando
+        olhando para a sua barra de notificação.\n
+        Para <b>ativar este serviço</b>, deslize o Interruptor Inteligente
+        a direita, enquanto que para <b>disable este serviço</b> deslizá-lo sobre
+        a esquerda. Quando você ativa ou desativa o serviço, uma mensagem irá
+        ser exibido na parte inferior da tela, indicando se
+        o serviço é iniciado ou parado.\n
+        Por padrão, o serviço é interrompido.
+        O aplicativo se lembra se o serviço é iniciado ou interrompido,
+        mesmo que feche a aplicação, e reabra-a mais tarde.
+        Isso permite que você pare o serviço a qualquer momento.\n\n
+        <b><i>Para rejeitar esta mensagem, prima a \'Secção de Ajuda\'
+        no seu ecrã.</i></b></string>
+</resources>

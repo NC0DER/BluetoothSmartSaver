@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="help_text">¿Nuevo usuario? Presiona <b><u>Ayuda</u></b></string>
+    <string name="switch_text">Interruptor inteligente</string>
+    <string name="service_status">Estado de servicio:</string>
+    <string name="service_started">Comenzó</string>
+    <string name="service_stopped">Detenido</string>
+    <string name="error_bluetooth">Error: ¡El adaptador Bluetooth no es válido!
+        Si este error persiste, comprueba si tu bluetooth funciona correctamente.</string>
+    <string name="error_permission">Error: El servicio no funciona.
+        Por favor, permita los permisos de aplicación solicitados.</string>
+    <string name="error_service_start">Error: El servicio no pudo iniciarse.</string>
+    <string name="error_service_stop">Error: El servicio no pudo ser detenido.</string>
+    <string name="popup_title"><b>Sección de ayuda</b></string>
+    <string name="popup_text">
+        Bluetooth Smart Saver es una utilidad de ahorro de energía automática,
+        para las personas que participan en muchas llamadas de audio usando
+        Auriculares Bluetooth.\n
+        sta aplicación ejecuta un servicio, separado en el fondo de la interfaz gráfica de la aplicación.
+        El propósito de este servicio es habilitar el bluetooth, cuando se recibe una llamada entrante
+        o cuando haces una llamada saliente, y deshabilitar el bluetooth una vez que la llamada ha terminado.
+        Incluso si cierras la aplicación (o la eliminas de \'Aplicaciones recientes\') este servicio
+        seguirá funcionando en el fondo. Puedes ver si el servicio está funcionando
+        mirando tu barra de notificación.\n
+        Para <b>activar este servicio</b>, deslice el interruptor inteligente en
+        la derecha, mientras que para <b>desactivar este servicio</b> deslizarlo
+        la izquierda. Cuando se activa o desactiva el servicio, un mensaje
+        en la parte inferior de la pantalla, indicando si
+        el servicio se inicia o se detiene.\n
+        Por defecto, el servicio está detenido.
+        La aplicación recuerda si el servicio se inicia o se detiene,
+        incluso si cierras la aplicación, y la vuelves a abrir más tarde.
+        Esto le permite detener el servicio en cualquier momento.\n\n
+        <b><i> Para descartar este mensaje, pulse la \'Sección de Ayuda\'
+        en tu pantalla.</i></b></string>
+</resources>

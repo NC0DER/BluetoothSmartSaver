@@ -5,6 +5,7 @@
     tools:ignore="GoogleAppIndexingWarning, AllowBackup">
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <application
@@ -24,5 +25,8 @@
             android:name=".HandleBluetoothByCallStateStatus"
             android:enabled="true">
         </service>
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-7623193159314749~9022693642"/>
     </application>
 </manifest>

@@ -16,14 +16,6 @@
 
 package com.bluetoothsmartsaver;
 
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.InterstitialAd;
-import com.google.android.gms.ads.initialization.InitializationStatus;
-import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.viewpager.widget.ViewPager;
@@ -36,7 +28,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.content.Context;
-import android.os.Handler;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -53,6 +44,7 @@ import static android.text.Layout.JUSTIFICATION_MODE_INTER_WORD;
 import static android.view.View.TEXT_ALIGNMENT_TEXT_START;
 import static com.bluetoothsmartsaver.Utility.createStatusSpannable;
 import static com.bluetoothsmartsaver.Utility.display;
+import static com.bluetoothsmartsaver.Utility.displayTNConFirstRun;
 import static com.bluetoothsmartsaver.Utility.getActionbarHeight;
 import static com.bluetoothsmartsaver.Utility.logI;
 
@@ -65,9 +57,6 @@ public class MainActivity extends AppCompatActivity {
 
     // Declare service_intent as a shared variable
     // for onCreate() and onDestroy() methods.
-    private AdView banner;
-    private AdRequest adRequest;
-    private InterstitialAd interstitial;
     private Intent service_intent;
     private PopupWindow popupWindow;
     private LayoutInflater layoutInflater;
@@ -76,9 +65,9 @@ public class MainActivity extends AppCompatActivity {
     private TextView popupText;
     private int parentSize;
     private int actionBarHeight;
-    private final Handler refreshHandler = new Handler();
-    private final Runnable refreshRunnable = new RefreshRunnable();
-    private int AD_REFRESH_RATE = 5; // In seconds.
+
+    // Set logging, depending on the value of the debug flag.
+    static final boolean debug = BuildConfig.DEBUG;
 
     /**
      * Checks where the service, is running.
@@ -126,35 +115,8 @@ public class MainActivity extends AppCompatActivity {
         status = findViewById(R.id.ServiceTextView);
         parentLayout = findViewById(R.id.layout);
 
-        // Initialize app ads.
-        MobileAds.initialize(this, new OnInitializationCompleteListener() {
-            @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {
-            }
-        });
-        // Initialize banner and interstitial ads.
-        banner = findViewById(R.id.adView);
-        adRequest = new AdRequest.Builder().build();
-        banner.loadAd(adRequest);
-
-        interstitial = new InterstitialAd(this);
-        interstitial.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
-        interstitial.loadAd(new AdRequest.Builder().build());
-        interstitial.setAdListener(new AdListener() {
-            @Override
-            public void onAdFailedToLoad(int errorCode) {
-                // Schedule an ad refresh.
-                refreshHandler.removeCallbacks(refreshRunnable);
-                refreshHandler.postDelayed(
-                        refreshRunnable, AD_REFRESH_RATE * 1000);
-            }
-
-            @Override
-            public void onAdClosed() {
-                // Load the next interstitial.
-                interstitial.loadAd(new AdRequest.Builder().build());
-            }
-        });
+        // Display EULA notice, if it is the first time the app runs.
+        displayTNConFirstRun(MainActivity.this);
 
         help.setOnClickListener(new View.OnClickListener() {
             /**
@@ -247,7 +209,6 @@ public class MainActivity extends AppCompatActivity {
                     // is not running, try to start the service,
                     // and set "Service status: Started"
                     // in the service TextView, if successful.
-                    // After this show an interstitial ad.
 
                     if (bluetooth == null) {
                         display(context.getResources().
@@ -270,12 +231,6 @@ public class MainActivity extends AppCompatActivity {
                                 createStatusSpannable(context, true),
                                 TextView.BufferType.SPANNABLE);
                         status.setTypeface(status.getTypeface(), Typeface.BOLD);
-
-                        // After the service was started successfully,
-                        // and the ad is loaded, show the ad.
-                        if (interstitial.isLoaded()) {
-                            interstitial.show();
-                        }
                     }
                 } else {
                     // If the switch is OFF, try to stop the service,
@@ -300,48 +255,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    /**
-    * When run, refreshes both ads (banner and interstitial).
-    * In case, there's been a network outage.
-    * */
-    private class RefreshRunnable implements Runnable {
-        @Override
-        public void run() {
-            banner.loadAd(adRequest);
-            interstitial.loadAd(new AdRequest.Builder().build());
-            logI("Ads failed to load:", "Refreshing ads...");
-        }
-    }
-    /**
-     * Calls the onStart()
-     * method of the parent class,
-     * and calls the handler that refreshes ads.
-     */
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Refresh the ads, using the handler.
-        refreshHandler.post(refreshRunnable);
-    }
 
     /**
-     * Calls the onStop()
-     * method of the parent class,
-     * and removes the handler that refreshes ads.
-     * As to save battery life,
-     * when the app is sent in the background.
+     * Call the onStart(), onStop(),
+     * onDestroy() methods of the
+     * parent class.
      */
     @Override
-    public void onStop() {
-        super.onStop();
-        // Remove the handler that refreshes ads.
-        refreshHandler.removeCallbacks(refreshRunnable);
-    }
+    public void onStart() { super.onStart(); }
 
-    /**
-     * Calls the onDestroy()
-     * method of the parent class.
-     */
+    @Override
+    public void onStop() { super.onStop(); }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

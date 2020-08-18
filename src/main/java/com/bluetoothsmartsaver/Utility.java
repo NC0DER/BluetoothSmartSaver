@@ -17,6 +17,7 @@
 package com.bluetoothsmartsaver;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -24,6 +25,10 @@ import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.util.TypedValue;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Contains static utility methods,
@@ -33,7 +38,7 @@ import android.widget.Toast;
 @SuppressWarnings("WeakerAccess")
 public final class Utility {
     // Set logging, depending on the value of the debug flag.
-    static final boolean LOG = BuildConfig.DEBUG;
+    static final boolean debug = BuildConfig.DEBUG;
     /** Uses Toast to display feedback to the user for a short length of time. */
     protected static void display(String text, Context context) {
         Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
@@ -42,7 +47,7 @@ public final class Utility {
     /** If logging is enabled, then we print the log info messages.
      *  Otherwise, the compiler optimizes away the empty method.
      */
-    protected static void logI(String tag, String msg){ if(LOG) Log.i(tag, msg); }
+    protected static void logI(String tag, String msg){ if(debug) Log.i(tag, msg); }
 
     /** Dynamically get the height of the Actionbar for scaling other UI elements. */
     protected static int getActionbarHeight(Context context){
@@ -77,5 +82,37 @@ public final class Utility {
                 text.length(), total.length(),
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         return spannable;
+    }
+
+    /**
+     * Uses shared preferences to display a dialog,
+     * on the first run of the app, which contains
+     * the TNC of this app.
+     */
+    public static void displayTNConFirstRun(final Context context) {
+        String TNC = context.getResources().getString(R.string.TNC);
+        boolean isFirstRun = context
+                .getSharedPreferences("PREFERENCE", MODE_PRIVATE)
+                .getBoolean("isFirstRun", true);
+        if (isFirstRun) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setTitle("Terms & Conditions")
+                    .setMessage(TNC)
+                    .setCancelable(false)
+                    .setPositiveButton("Accept",
+                            new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // Set isFirstRun to false,
+                            // so this function executes only once.
+                            context.getSharedPreferences(
+                                    "PREFERENCE", MODE_PRIVATE)
+                                    .edit()
+                                    .putBoolean("isFirstRun", false)
+                                    .apply();
+                        }
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
+        }
     }
 }

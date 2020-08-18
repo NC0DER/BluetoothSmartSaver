@@ -6,13 +6,13 @@ The purpose of this service is to enable Bluetooth, when you receive an incoming
 Even if you close the app (or remove it from "Recent apps") this service will still work in the background. The service can be stopped or started anytime either in-app or by the notification bar.
 
 ## Features
-- Free
-- Battery optimized
-- Dark mode (enabled by default)
-- Minimalist User Friendly Design
-- Runs on most android devices (Tablets included) which have a Bluetooth adapter.
-- Small download size (less than `2 MB`)
-- Supports multiple languages, which are detected automatically by the current device localization  
+- [x] Free
+- [x] Battery optimized
+- [x] Dark mode (enabled by default)
+- [x] Minimalist User Friendly Design
+- [x] Runs on most android devices (Tablets included) which have a Bluetooth adapter.
+- [x] Small download size (less than `2 MB`)
+- [x] Supports multiple languages, which are detected automatically by the current device localization  
 (English 🇬🇧, French 🇫🇷, German 🇩🇪, Spanish 🇪🇸, Portuguese 🇵🇹, Russian 🇷🇺, Chinese Simplified 🇨🇳)
 
 ## Screenshots

@@ -202,7 +202,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    // if the switch is ON and the device does not support
+                    // If the switch is ON and the device does not support
                     // Bluetooth, then don't start the service,
                     // display an error message, and set the switch to OFF.
                     // Alternatively, if the switch is ON, and the service
@@ -268,7 +268,5 @@ public class MainActivity extends AppCompatActivity {
     public void onStop() { super.onStop(); }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
+    protected void onDestroy() { super.onDestroy(); }
 }

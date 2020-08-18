@@ -1,0 +1,12 @@
+<resources>
+    <style name="DarkTheme" parent="Theme.AppCompat">
+        <item name="android:colorPrimary">@color/darkGray</item>
+        <item name="android:colorPrimaryDark">@color/darkGray</item>
+        <item name="android:textColorPrimary">@color/lightGray</item>
+        <item name="android:colorAccent">@color/lightGray</item>
+        <item name="android:color">@color/lightGray</item>
+        <item name="android:windowBackground">@color/darkGray</item>
+        <item name="android:navigationBarColor">@color/darkGray</item>
+        <item name="android:actionBarStyle">@color/darkGray</item>
+    </style>
+</resources>

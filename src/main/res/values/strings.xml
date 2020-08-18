@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name" translatable="false">Bluetooth Smart Saver</string>
+    <string name="help_text">First-time user? Press <b><u>Help</u></b></string>
+    <string name="switch_text">Smart Switch</string>
+    <string name="service_status">Service Status:</string>
+    <string name="service_started">Started</string>
+    <string name="service_stopped">Stopped</string>
+    <string name="error_bluetooth">Error: Bluetooth adapter is invalid!\n
+        If this error persists, check if your bluetooth is properly working.</string>
+    <string name="error_permission">Error: Service fail to run.\n
+        Please allow requested app permissions.</string>
+    <string name="error_service_start">Error: Service could not be started.</string>
+    <string name="error_service_stop">Error: Service could not be stopped.</string>
+    <string name="popup_title"><b>Help Section</b></string>
+    <string name="popup_text">
+        Bluetooth Smart Saver is an automatic power saving utility,
+        for people who participate in a lot of audio calls using
+        Bluetooth Headsets.\n
+        This app runs a service, separately in the background from the graphical UI of the app.
+        The purpose of this service is to enable bluetooth, when you receive an incoming call
+        or when you make an outgoing call, and to disable bluetooth once the call is over.
+        Even if you close the app (or remove it from \'Recent apps\') this service
+        will still work in the background. You can see if the service is running
+        by looking at your notification bar.\n
+        To <b>enable this service</b>, slide the Smart Switch on
+        the right, whereas to <b>disable this service</b> slide it on
+        the left. When you enable or disable the service, a message will
+        be displayed on the bottom of your screen, indicating whether
+        the service is started or stopped.\n
+        By default, the service is stopped.
+        The app remembers if the service is started or stopped,
+        even if you close the app, and re-open it later.
+        This enables you to stop the service at anytime.\n\n
+        <b><i>To dismiss this message, press the \'Help Section\'
+        on your screen.</i></b></string>
+</resources>

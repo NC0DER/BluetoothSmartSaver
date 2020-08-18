@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="help_text">Neuer Benutzer? Drücken Sie <b><u>Hilfe</u></b></string>
+    <string name="switch_text">Smart-Schalter</string>
+    <string name="service_status">Dienststatus:</string>
+    <string name="service_started">Gestartet</string>
+    <string name="service_stopped">Angehalten</string>
+    <string name="error_bluetooth">Fehler: Der Bluetooth-Adapter ist ungültig!\n
+        Wenn dieser Fehler weiterhin besteht, überprüfen Sie, ob Ihr Bluetooth richtig funktioniert.</string>
+    <string name="error_permission">Fehler: Der Dienst kann nicht ausgeführt werden.\n
+        Bitte erlauben Sie die angeforderten Berechtigungen.</string>
+    <string name="error_service_start">Fehler: Der Dienst konnte nicht gestartet werden.</string>
+    <string name="error_service_stop">Fehler: Der Dienst konnte nicht gestoppt werden.</string>
+    <string name="popup_title"><b>Hilfe-Sektion</b></string>
+    <string name="popup_text">
+        Bluetooth Smart Saver ist ein automatisches Energiesparprogramm,
+        für Personen, die an vielen Audio-Anrufen teilnehmen mit
+        bluetooth kopfhörer.\n
+        Diese Anwendung führt einen Dienst aus, der getrennt von der grafischen Benutzeroberfläche der Anwendung im Hintergrund läuft.
+        Der Zweck dieses Dienstes ist es, Bluetooth zu aktivieren, wenn Sie einen eingehenden Anruf erhalten.
+        oder wenn Sie einen ausgehenden Anruf tätigen, und um Bluetooth zu deaktivieren, sobald der Anruf beendet ist.
+        Selbst wenn Sie die App schließen (oder sie aus den \'Aktuelle apps\' entfernen), ist dieser Dienst
+        wird noch im Hintergrund arbeiten. Sie können sehen, ob der Dienst läuft
+        indem Sie auf Ihre Benachrichtigungsleiste schauen.\n
+        Um <b>diesen Dienst</b> zu aktivieren, schieben Sie den Smart-Schalter auf
+        das Recht, wobei <b>diesen Dienst zu deaktivieren</b> auf
+        die Linke. Wenn Sie den Dienst aktivieren oder deaktivieren, wird eine Meldung
+        unten auf dem Bildschirm angezeigt werden, wobei anzugeben ist, ob
+        der Dienst gestartet oder gestoppt wird.\n
+        Standardmäßig wird der Dienst gestoppt.
+        Die Anwendung merkt sich, ob der Dienst gestartet oder gestoppt wurde,
+        auch wenn Sie die App schließen und später wieder öffnen.
+        Dies ermöglicht es Ihnen, den Dienst jederzeit zu beenden.\n\n
+        <b><i>Um diese Nachricht zu verwerfen, drücken Sie die \'Hilfe-Sektion\'
+        auf Ihrem Bildschirm.</i></b></string>
+</resources>

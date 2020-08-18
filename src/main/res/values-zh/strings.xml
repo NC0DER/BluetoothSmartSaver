@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="help_text">新用户？ 按<b><u>帮助</u></b></string>
+    <string name="switch_text">智能开关</string>
+    <string name="service_status">服务状态：</string>
+    <string name="service_started">已开始</string>
+    <string name="service_stopped">已停止</string>
+    <string name="error_bluetooth">错误：蓝牙适配器无效！\n
+         如果此错误仍然存在，请检查蓝牙是否正常工作。</string>
+    <string name="error_permission">E错误：服务无法运行。\n
+         请允许请求的应用程序权限。</string>
+    <string name="error_service_start">错误：服务无法启动。</string>
+    <string name="error_service_stop">错误：服务无法停止。</string>
+    <string name="popup_title"><b>帮助部分</b></string>
+    <string name="popup_text">
+        Bluetooth Smart Saver是一种自动节能的实用程序，
+        适用于使用进行大量音频通话的人
+        蓝牙耳机。\n
+        此应用程序在后台与该应用程序的图形UI分开运行服务。
+        该服务的目的是在您收到来电时启用蓝牙
+        或拨打电话时，并在通话结束后禁用蓝牙。
+        即使您关闭该应用程序（或将其从“最新应用程序”中删除），该服务
+        仍将在后台运行。 您可以查看服务是否正在运行
+        通过查看通知栏。\n
+        要<b>启用此服务</b>，请滑动智能开关
+        右侧，而<b>禁用此服务</b>
+        左边。 启用或禁用服务时，将显示一条消息
+        显示在屏幕底部，指示是否
+        服务已启动或停止。\n
+        默认情况下，服务已停止。
+        该应用会记住该服务是启动还是停止，
+        即使您关闭了该应用程序，然后稍后将其重新打开。
+        这样一来，您可以随时停止该服务。\n\n
+        <b><i>要关闭此消息，请按\'帮助部分\'
+        在屏幕上。</i></b></string>
+
+</resources>
